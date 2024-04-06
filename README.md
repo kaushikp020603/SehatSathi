@@ -80,7 +80,7 @@ If you encounter any issues or have questions, we're here to help!
 
 Don't hesitate to contact us. We're here to support you!
 
-![GIF showing example](https://example.com/sehatsaathi.gif)
+![GIF showing example](GIF3.gif)
 
 ## Acknowledgments 🙏
 
