@@ -17,6 +17,7 @@ function Home() {
   const [specializationFilter, setSpecializationFilter] = useState("");
   const [showSymptomsCard, setShowSymptomsCard] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+
   const dispatch = useDispatch();
   const symptomsList = [
     "itching",
@@ -175,21 +176,45 @@ function Home() {
       console.log("Error fetching user data:", error);
     }
   };
-
+  const [data, setData] = useState({});
   useEffect(() => {
     getData();
+    fetchData();
   }, []);
-
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8100/api/data");
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
+    if (option === "symptoms") {
+      setShowSymptomsCard(true);
+    } else {
+      setShowSymptomsCard(false);
+    }
   };
 
+  const handleSymptomsChange = async (value) => {
+    setSelectedSymptoms(value);
+    try {
+      const response = await axios.post(
+        "http://localhost:8100/disease_predict",
+        {
+          symptoms: value,
+        }
+      );
+      console.log(response.data);
+      // Handle response data
+    } catch (error) {
+      console.error("Error predicting disease:", error);
+    }
+  };
   const handleFilter = (value) => {
     setSpecializationFilter(value);
-  };
-
-  const handleSymptomsChange = (value) => {
-    setSelectedSymptoms(value);
   };
 
   const filteredDoctors = specializationFilter
@@ -295,6 +320,7 @@ function Home() {
                       </Select>
                     </Card>
                   )}
+                  {/* Add the button and display predicted disease here */}
                 </div>
               )}
             </div>

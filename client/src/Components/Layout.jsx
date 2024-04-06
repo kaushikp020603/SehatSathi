@@ -31,12 +31,22 @@ function Layout({ children }) {
       path: "/game",
       icon: "ri-puzzle-line",
     },
+    {
+      name: "Books",
+      path: "/books",
+      icon: "ri-book-line",
+    },
+    {
+      name: "Contact Us",
+      path: "/contactus",
+      icon: "ri-customer-service-line",
+    },
   ];
 
   const adminMenu = [
     {
       name: "Home",
-      path: "/home",
+      path: "/admin/home",
       icon: "ri-home-4-line",
     },
     {
@@ -71,7 +81,7 @@ function Layout({ children }) {
     },
     {
       name: "Attendance",
-      path: "/apply-doctor",
+      path: "/attendance",
       icon: "ri-id-card-fill",
     },
     {
@@ -106,7 +116,7 @@ function Layout({ children }) {
             ) : null}
             <h1 className="role">{role}</h1>
 
-            <div className="menu">
+            <div className="menu" style={{ marginTop: "80px" }}>
               {menuToBeRendered.map((menu) => {
                 const isActive = location.pathname === menu.path;
                 return (

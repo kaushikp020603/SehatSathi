@@ -17,6 +17,10 @@ import BookAppointment from "./Components/BookAppointment";
 import Appointments from "./Components/Doctor/Appointments";
 import DoctorAppointments from "./Components/Doctor/DoctorAppointments";
 import Game from "./Components/Home/Game";
+import Attendance from "./Components/Attendance";
+import AdminHome from "./Components/Home/AdminHome";
+import BookSearch from "./Components/Books/BookSearch";
+import ContactUs from "./Components/ContactUs";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -123,6 +127,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <Game />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/attendance"
+            element={
+              <ProtectedRoute>
+                <Attendance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/home"
+            element={
+              <ProtectedRoute>
+                <AdminHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/books"
+            element={
+              <ProtectedRoute>
+                <BookSearch />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contactus"
+            element={
+              <ProtectedRoute>
+                <ContactUs />
               </ProtectedRoute>
             }
           />
