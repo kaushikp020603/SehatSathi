@@ -1,5 +1,5 @@
 # SehatSaathi: Elevating Healthcare Operations to New Horizons 
-![SehatSaathi](1.png)
+![SehatSaathi](SehatSathi.gif)
 
 <h1 align="center">
   <br>
