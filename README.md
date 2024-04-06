@@ -1,5 +1,7 @@
 # SehatSaathi: Elevating Healthcare Operations to New Horizons 
-![SehatSaathi](SehatSathi.gif)
+<p align="center">
+  <img src="SehatSathi.gif" alt="SehatSaathi" width="300" height="300">
+</p>
 
 <h1 align="center">
   <br>
