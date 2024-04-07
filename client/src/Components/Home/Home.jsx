@@ -17,6 +17,7 @@ function Home() {
   const [specializationFilter, setSpecializationFilter] = useState("");
   const [showSymptomsCard, setShowSymptomsCard] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  const [disease, setDisease] = useState("");
 
   const dispatch = useDispatch();
   const symptomsList = [
@@ -198,21 +199,29 @@ function Home() {
     }
   };
 
-  const handleSymptomsChange = async (value) => {
+  const handleSymptomsChange = async(value) => {
     setSelectedSymptoms(value);
+  }
+
+  const handleSubmit = async () => {
     try {
+      const symptomsString = selectedSymptoms.map(symptom => symptom.toLowerCase()).join(','); // Convert each symptom to lowercase and join them with commas
+  
       const response = await axios.post(
         "http://localhost:8100/disease_predict",
         {
-          symptoms: value,
+          symptoms: symptomsString,
         }
       );
-      console.log(response.data);
+      setDisease(response.data.doctor);
       // Handle response data
     } catch (error) {
-      console.error("Error predicting disease:", error);
+      console.error("Error predicting doctor:", error);
     }
-  };
+  }
+  
+  
+  
   const handleFilter = (value) => {
     setSpecializationFilter(value);
   };
@@ -318,9 +327,17 @@ function Home() {
                           </Option>
                         ))}
                       </Select>
+                      <Button onClick={handleSubmit}>Check</Button>
                     </Card>
                   )}
-                  {/* Add the button and display predicted disease here */}
+                  {disease && <p>Predicted Doctor: {disease}</p>}
+                  <Row gutter={20} style={{ marginTop: "23px" }}>
+                    {filteredDoctors.map((doctor) => (
+                      <Col span={8} xs={24} sm={24} lg={8} key={doctor._id}>
+                        <Doctor doctor={doctor} selectedOption={selectedOption} />
+                      </Col>
+                    ))}
+                  </Row>
                 </div>
               )}
             </div>
