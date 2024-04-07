@@ -22,7 +22,7 @@ def disease_predict():
         
         # Get the predicted doctor
         predicted_doctor = diseaseprediction.print_doctor_for_disease(predicted_disease)
-        print("Predicted doctor:", predicted_doctor)  # Log predicted doctor
+        print("You should visit :", predicted_doctor)  # Log predicted doctor
         
         return jsonify({"doctor": predicted_doctor}), 200
     except Exception as e:
@@ -30,4 +30,4 @@ def disease_predict():
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8100)
+    app.run(debug=True, port=8000)
