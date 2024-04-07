@@ -155,6 +155,20 @@ function Home() {
     "yellow_crust_ooze",
   ];
 
+  const paragraphStyle = {
+    fontSize: "24px",
+    fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+    color: "#fff",
+    backgroundColor: "#a3b5e3",
+    padding: "15px",
+    borderRadius: "20px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
   const getData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -199,16 +213,18 @@ function Home() {
     }
   };
 
-  const handleSymptomsChange = async(value) => {
+  const handleSymptomsChange = async (value) => {
     setSelectedSymptoms(value);
-  }
+  };
 
   const handleSubmit = async () => {
     try {
-      const symptomsString = selectedSymptoms.map(symptom => symptom.toLowerCase()).join(','); // Convert each symptom to lowercase and join them with commas
-  
+      const symptomsString = selectedSymptoms
+        .map((symptom) => symptom.toLowerCase())
+        .join(","); // Convert each symptom to lowercase and join them with commas
+
       const response = await axios.post(
-        "http://localhost:8100/disease_predict",
+        "http://localhost:8000/disease_predict",
         {
           symptoms: symptomsString,
         }
@@ -218,10 +234,8 @@ function Home() {
     } catch (error) {
       console.error("Error predicting doctor:", error);
     }
-  }
-  
-  
-  
+  };
+
   const handleFilter = (value) => {
     setSpecializationFilter(value);
   };
@@ -330,11 +344,18 @@ function Home() {
                       <Button onClick={handleSubmit}>Check</Button>
                     </Card>
                   )}
-                  {disease && <p>Predicted Doctor: {disease}</p>}
+                  <br></br>
+                  <hr></hr>
+                  {disease && (
+                    <p style={paragraphStyle}>You should Visit a {disease}</p>
+                  )}
                   <Row gutter={20} style={{ marginTop: "23px" }}>
                     {filteredDoctors.map((doctor) => (
                       <Col span={8} xs={24} sm={24} lg={8} key={doctor._id}>
-                        <Doctor doctor={doctor} selectedOption={selectedOption} />
+                        <Doctor
+                          doctor={doctor}
+                          selectedOption={selectedOption}
+                        />
                       </Col>
                     ))}
                   </Row>
