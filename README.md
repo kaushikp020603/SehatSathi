@@ -77,8 +77,8 @@ If you encounter any issues or have questions, we're here to help!
 - **General Inquiries:** For general inquiries or further assistance, feel free to reach out to the project maintainers:
   - [Kaushik](mailto:kaushik020603@gmail.com)
   - [Amogh](mailto:amoghmparulekar@gmail.com)
-  - [Ajit](mailto:ajitnoob@gmail.com)
-  - [Riya](mailto:riyanoob@gmail.com)
+  - [Ajit](mailto:ajit051073@gmail.com)
+  - [Riya](mailto:riyap140503@gmail.com)
 
 Don't hesitate to contact us. We're here to support you!
 
