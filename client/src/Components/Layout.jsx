@@ -59,12 +59,6 @@ function Layout({ children }) {
       path: "/admin/doctorslist",
       icon: "ri-user-star-line",
     },
-
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: "ri-id-card-line",
-    },
   ];
 
   console.log("Value of user:", user);
