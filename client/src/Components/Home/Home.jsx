@@ -314,6 +314,7 @@ function Home() {
                 <Option value="Sleep Medicine">Sleep Medicine</Option>
                 <Option value="Sports Medicine">Sports Medicine</Option>
                 <Option value="Urology">Urology</Option>
+                <Option value="Dermatologist">Dermatologist</Option>
                 {/* Add more Option components for additional specializations */}
               </Select>
             </div>
