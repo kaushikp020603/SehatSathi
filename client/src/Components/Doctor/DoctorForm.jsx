@@ -77,40 +77,24 @@ function DoctorForm({ onFinish, initialValues }) {
             rules={[{ required: true }]}
           >
             <Select placeholder="Select Specialization">
-              <Option value="Allergy & Immunology">Allergy & Immunology</Option>
-              <Option value="Anesthesiology">Anesthesiology</Option>
-              <Option value="Cardiology">Cardiology</Option>
-              <Option value="Dermatology">Dermatology</Option>
-              <Option value="Endocrinology">Endocrinology</Option>
-              <Option value="Family Medicine">Family Medicine</Option>
-              <Option value="Gastroenterology">Gastroenterology</Option>
-              <Option value="Geriatrics">Geriatrics</Option>
-              <Option value="Hematology">Hematology</Option>
-              <Option value="Infectious Disease">Infectious Disease</Option>
-              <Option value="Internal Medicine">Internal Medicine</Option>
-              <Option value="Nephrology">Nephrology</Option>
-              <Option value="Neurology">Neurology</Option>
-              <Option value="Obstetrics & Gynecology">
-                Obstetrics & Gynecology
-              </Option>
-              <Option value="Oncology">Oncology</Option>
-              <Option value="Ophthalmology">Ophthalmology</Option>
-              <Option value="Orthopedic Surgery">Orthopedic Surgery</Option>
-              <Option value="Otolaryngology">Otolaryngology</Option>
-              <Option value="Pain Medicine">Pain Medicine</Option>
-              <Option value="Pediatrics">Pediatrics</Option>
-              <Option value="Physical Medicine & Rehabilitation">
-                Physical Medicine & Rehabilitation
-              </Option>
-              <Option value="Plastic Surgery">Plastic Surgery</Option>
-              <Option value="Psychiatry">Psychiatry</Option>
-              <Option value="Pulmonology">Pulmonology</Option>
-              <Option value="Radiology">Radiology</Option>
-              <Option value="Rheumatology">Rheumatology</Option>
-              <Option value="Sleep Medicine">Sleep Medicine</Option>
-              <Option value="Sports Medicine">Sports Medicine</Option>
-              <Option value="Urology">Urology</Option>
-              {/* Add more Option components for additional specializations */}
+              <Option value="Dermatologist">Dermatologist</Option>
+              <Option value="Allergist">Allergist</Option>
+              <Option value="Gastroenterologist">Gastroenterologist</Option>
+              <Option value="Hepatologist">Hepatologist</Option>
+              <Option value="General Physician">General Physician</Option>
+              <Option value="Endocrinologist">Endocrinologist</Option>
+              <Option value="Pulmonologist">Pulmonologist</Option>
+              <Option value="Cardiologist">Cardiologist</Option>
+              <Option value="Neurologist">Neurologist</Option>
+              <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
+              <Option value="Infectious Disease Specialist">Infectious Disease Specialist</Option>
+              <Option value="Pediatrician">Pediatrician</Option>
+              <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
+              <Option value="Rheumatologist">Rheumatologist</Option>
+              <Option value="ENT Specialist">ENT Specialist</Option>
+              <Option value="Urologist">Urologist</Option>
+              <Option value="General Surgeon">General Surgeon</Option>
+              <Option value="Vascular Surgeon">Vascular Surgeon</Option>
             </Select>
           </Form.Item>
         </Col>
