@@ -67,7 +67,7 @@ def print_doctor_for_disease(predicted_disease):
         'Pneumonia': 'Pulmonologist',
         'Dimorphic Hemorrhoids (piles)': 'General Surgeon',
         'Heart Attack': 'Cardiologist',
-        'Varicose veins': 'Vascular Surgeon',
+        'Varicose veins': 'General Physician',
         'Hypothyroidism': 'Endocrinologist',
         'Hyperthyroidism': 'Endocrinologist',
         'Hypoglycemia': 'Endocrinologist',
