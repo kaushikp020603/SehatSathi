@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../assets/logo10.png";
+import Logo from "../../assets/logo11.png";
 import {
   AppBar,
   Button,
@@ -13,7 +13,12 @@ import {
 import { Link } from "react-router-dom";
 import DrawerComp from "./DrawerComp";
 
-const PAGES = ["About Us", "Contact Information"];
+const PAGES = [
+  "About Us",
+  "Contact Information",
+  "Donna AI",
+  "Latest Health Alerts",
+];
 
 const NavBar = () => {
   const [value, setValue] = useState();
@@ -36,7 +41,7 @@ const NavBar = () => {
       position="fixed" // Fixed position at the top
       sx={{
         backgroundColor: "#E0E9FF",
-        height: "80px",
+        height: "85px",
         boxShadow: "0.1",
       }}
     >
@@ -59,25 +64,42 @@ const NavBar = () => {
               value={value}
               onChange={(e, value) => {
                 setValue(value);
-                handleTabChange(e, value);
+                // Handle scrolling for the first two tabs and redirection for others
+                if (value < 2) {
+                  handleTabChange(e, value); // Scroll for the first two
+                }
               }}
               indicatorColor="secondary"
               sx={{
                 "& .MuiTabs-indicator": {
-                  backgroundColor: "#7f8c8d", // Set the color to your desired shade of grey
+                  backgroundColor: "#7f8c8d",
                 },
                 "& .Mui-selected": {
-                  background: "linear-gradient(45deg, #2196F3, #9C27B0)", // Apply a gradient background for the selected tab
-                  WebkitBackgroundClip: "text", // Clip the text to the background gradient
-                  color: "transparent", // Set the text color to transparent
+                  background: "linear-gradient(45deg, #2196F3, #9C27B0)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
                 },
                 marginLeft: "auto",
               }}
             >
-              {PAGES.map((page, index) => (
-                <Tab key={index} label={page} />
-              ))}
+              {PAGES.map((page, index) => {
+                // For first two tabs, scroll to section
+                if (index < 2) {
+                  return <Tab key={index} label={page} />;
+                } else {
+                  // For last two tabs, redirect to new pages
+                  return (
+                    <Tab
+                      key={index}
+                      label={page}
+                      component={Link}
+                      to={`/${PAGES[index].replace(/\s+/g, "-").toLowerCase()}`}
+                    />
+                  );
+                }
+              })}
             </Tabs>
+
             <Button
               sx={{
                 marginLeft: "auto",

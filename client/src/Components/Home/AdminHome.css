@@ -1,0 +1,93 @@
+body {
+    margin: 50px;
+    padding: 0;
+    background-color: #1d2634;
+    color: #9e9ea4;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Adjust responsive container to have a specific height */
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 60px;
+    height: auto; /* Ensure it resizes correctly */
+  }
+  
+  .main-container {
+    padding: 20px;
+    max-width: 1200px; /* Limit the width for better centering */
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .main-title {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .main-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 15px 0;
+  }
+  
+  .card {
+    background-color: #263043;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card_icon {
+    font-size: 25px;
+  }
+  
+  /* Charts styling */
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 300px; /* Added height to ensure proper spacing */
+  }
+  
+  /* Medium <= 992px */
+  @media screen and (max-width: 992px) {
+    .main-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .charts {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Small <= 768px */
+  @media screen and (max-width: 768px) {
+    .main-cards {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  
+    .charts {
+      grid-template-columns: 1fr;
+      margin-top: 30px;
+    }
+  }
+  
+  /* Extra Small <= 576px */
+  @media screen and (max-width: 576px) {
+    .header-left {
+      display: none;
+    }
+  }
+  

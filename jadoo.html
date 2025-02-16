@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Routing Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+</head>
+<body>
+
+<nav>
+    <a href="#/">Home</a>
+    <a href="#/about">About</a>
+</nav>
+
+<div ng-view></div>
+
+<script>
+    var app = angular.module('myApp', ['ngRoute']);
+
+    app.config(function($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'home.html',
+                controller: 'HomeController'
+            })
+            .when('/about', {
+                templateUrl: 'about.html',
+                controller: 'AboutController'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
+    app.controller('HomeController', function($scope) {
+        $scope.items = ['Apple', 'Banana', 'Orange'];
+    });
+
+    app.controller('AboutController', function($scope) {
+        $scope.styles = {
+            color: 'blue',
+            'font-weight': 'bold'
+        };
+    });
+</script>
+
+<script type="text/ng-template" id="home.html">
+    <h1>Welcome to Home Page</h1>
+    <ul>
+        <li ng-repeat="item in items">{{ item }}</li>
+    </ul>
+</script>
+
+<script type="text/ng-template" id="about.html">
+    <h1 ng-style="styles">About Us</h1>
+    <p>We are a company providing solutions in AngularJS.</p>
+</script>
+
+</body>
+</html>

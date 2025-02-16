@@ -4,10 +4,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../Layout";
 import "../../layout.css";
-import { Button, Col, Row, Select, Card } from "antd";
+import { Button, Col, Row, Select, Card, message } from "antd";
 import Doctor from "../Doctor";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const { Option } = Select;
 
@@ -18,6 +21,9 @@ function Home() {
   const [showSymptomsCard, setShowSymptomsCard] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [disease, setDisease] = useState("");
+  const [nearbyHospitals, setNearbyHospitals] = useState([]);
+  const [userLocation, setUserLocation] = useState([19.2976, 72.8471]);
+  const [mapVisible, setMapVisible] = useState(false);
 
   const dispatch = useDispatch();
   const symptomsList = [
@@ -168,6 +174,46 @@ function Home() {
     alignItems: "center",
     justifyContent: "center",
   };
+  const markerStyle = {
+    backgroundColor: "#ff5722",
+    borderRadius: "50%",
+    width: "20px",
+    height: "20px",
+    border: "2px solid #fff",
+  };
+  const createIcon = (color, borderColor) =>
+    new L.Icon({
+      iconUrl: `data:image/svg+xml;base64,${btoa(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="${color}" stroke="${borderColor}" stroke-width="2" />
+      </svg>
+    `)}`,
+      iconSize: [25, 25],
+      iconAnchor: [12, 24],
+      popupAnchor: [0, -20],
+    });
+
+  const popupStyle = {
+    backgroundColor: "#ffffff",
+    color: "#333333",
+    fontSize: "14px",
+    borderRadius: "8px",
+    padding: "10px",
+    border: "1px solid #ddd",
+  };
+
+  const customIcon = new L.Icon({
+    iconUrl:
+      "data:image/svg+xml;base64," +
+      btoa(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="${markerStyle.backgroundColor}" stroke="${markerStyle.border}" stroke-width="2" />
+      </svg>
+    `),
+    iconSize: [25, 25], // Size of the icon
+    iconAnchor: [12, 24], // Anchor point of the icon
+    popupAnchor: [0, -20], // Position of the popup relative to the icon
+  });
 
   const getData = async () => {
     try {
@@ -213,6 +259,31 @@ function Home() {
     }
   };
 
+  const findNearbyHospitals = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation([latitude, longitude]);
+        setMapVisible(true); // Show the map when the button is clicked
+        try {
+          const response = await axios.get(
+            `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"hospital|clinic"](around:3000,${latitude},${longitude});out;`
+          );
+          if (response.data.elements.length > 0) {
+            setNearbyHospitals(response.data.elements);
+            message.success("Nearby hospitals and clinics found.");
+          } else {
+            message.info("No hospitals or clinics found nearby.");
+          }
+        } catch (error) {
+          console.error("Error fetching hospitals:", error);
+          message.error("Error fetching nearby hospitals.");
+        }
+      });
+    } else {
+      message.error("Geolocation is not supported by this browser.");
+    }
+  };
   const handleSymptomsChange = async (value) => {
     setSelectedSymptoms(value);
   };
@@ -244,6 +315,45 @@ function Home() {
     ? doctors.filter((doctor) => doctor.specialization === specializationFilter)
     : doctors;
 
+  const locationIcon = new L.Icon({
+    iconUrl:
+      "data:image/svg+xml;base64," +
+      btoa(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.746 4.635 10.497 10.543 11.948 1.63.39 2.96-.472 3.458-1.258.52-.811.453-1.789.214-2.747-.162-.546-.567-.98-1.123-1.229a4.092 4.092 0 0 0-1.502-.346c-2.217 0-4-1.783-4-4s1.783-4 4-4 4 1.783 4 4c0 .206-.013.411-.037.612a4.092 4.092 0 0 0-1.437.349c-.556.249-.961.683-1.126 1.229-.243.957-.306 1.926-.16 2.748.506.786 1.832 1.641 3.413 1.062 3.924-1.236 6.833-4.668 6.833-8.663 0-6.627-5.373-12-12-12zm-1 17.9c-1.472 0-2.775-1.303-2.775-2.775 0-1.472 1.303-2.775 2.775-2.775 1.472 0 2.775 1.303 2.775 2.775 0 1.472-1.303 2.775-2.775 2.775z" fill="#ff5722"/>
+        </svg>
+      `),
+    iconSize: [24, 24], // Size of the icon
+    iconAnchor: [12, 24], // Anchor point of the icon
+    popupAnchor: [0, -20], // Position of the popup relative to the icon
+  });
+  const hospitalIcon = new L.Icon({
+    iconUrl:
+      "data:image/svg+xml;base64," +
+      btoa(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.746 4.635 10.497 10.543 11.948 1.63.39 2.96-.472 3.458-1.258.52-.811.453-1.789.214-2.747-.162-.546-.567-.98-1.123-1.229a4.092 4.092 0 0 0-1.502-.346c-2.217 0-4-1.783-4-4s1.783-4 4-4 4 1.783 4 4c0 .206-.013.411-.037.612a4.092 4.092 0 0 0-1.437.349c-.556.249-.961.683-1.126 1.229-.243.957-.306 1.926-.16 2.748.506.786 1.832 1.641 3.413 1.062 3.924-1.236 6.833-4.668 6.833-8.663 0-6.627-5.373-12-12-12zm-1 17.9c-1.472 0-2.775-1.303-2.775-2.775 0-1.472 1.303-2.775 2.775-2.775 1.472 0 2.775 1.303 2.775 2.775 0 1.472-1.303 2.775-2.775 2.775z" fill="#ff5722"/>
+      </svg>
+    `),
+    iconSize: [24, 24], // Size of the icon
+    iconAnchor: [12, 24], // Anchor point of the icon
+    popupAnchor: [0, -20], // Position of the popup relative to the icon
+  });
+
+  // Define custom icon for user's location
+  const userLocationIcon = new L.Icon({
+    iconUrl:
+      "data:image/svg+xml;base64," +
+      btoa(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M12 0c-6.627 0-12 5.373-12 12 0 6.627 5.373 12 12 12 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12zm-1 17.9c-1.472 0-2.775-1.303-2.775-2.775 0-1.472 1.303-2.775 2.775-2.775 1.472 0 2.775 1.303 2.775 2.775 0 1.472-1.303 2.775-2.775 2.775zm1-9.9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z" fill="#007bff"/>
+      </svg>
+    `),
+    iconSize: [24, 24], // Size of the icon
+    iconAnchor: [12, 24], // Anchor point of the icon
+    popupAnchor: [0, -20], // Position of the popup relative to the icon
+  });
+
   return (
     <Layout>
       {selectedOption === null ? (
@@ -269,6 +379,17 @@ function Home() {
           >
             Find directly based on specialization
           </Button>
+          <Button
+            onClick={findNearbyHospitals}
+            style={{
+              backgroundColor: "#E0E9FF",
+              borderColor: "#E0E9FF",
+              color: "#000",
+              marginLeft: "10px",
+            }}
+          >
+            Find Nearby Hospitals and Clinics
+          </Button>
         </div>
       ) : (
         <div>
@@ -292,7 +413,9 @@ function Home() {
                 <Option value="Cardiologist">Cardiologist</Option>
                 <Option value="Neurologist">Neurologist</Option>
                 <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
-                <Option value="Infectious Disease Specialist">Infectious Disease Specialist</Option>
+                <Option value="Infectious Disease Specialist">
+                  Infectious Disease Specialist
+                </Option>
                 <Option value="Pediatrician">Pediatrician</Option>
                 <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
                 <Option value="Rheumatologist">Rheumatologist</Option>
@@ -326,16 +449,18 @@ function Home() {
                           </Option>
                         ))}
                       </Select>
-                      <p>For better accuracy enter atleast 4 symptoms. If you have less than 4 mild symptoms visit a General Physician for better treatment</p>
+                      <p>
+                        For better accuracy enter atleast 4 symptoms. If you
+                        have less than 4 mild symptoms visit a General Physician
+                        for better treatment
+                      </p>
                       <Button onClick={handleSubmit}>Check</Button>
                     </Card>
                   )}
                   <br></br>
                   <hr></hr>
                   {disease && (
-                    <p style={paragraphStyle}>
-                      You should Visit a {disease}
-                    </p>
+                    <p style={paragraphStyle}>You should Visit a {disease}</p>
                   )}
                   <Row gutter={20} style={{ marginTop: "23px" }}>
                     {filteredDoctors.map((doctor) => (
@@ -359,6 +484,34 @@ function Home() {
             ))}
           </Row>
         </div>
+      )}
+
+      {mapVisible && (
+        <MapContainer
+          center={userLocation}
+          zoom={13}
+          style={{ height: "500px", width: "100%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {nearbyHospitals.map((hospital) => (
+            <Marker
+              key={hospital.id}
+              position={[hospital.lat, hospital.lon]}
+              icon={hospitalIcon}
+            >
+              <Popup>
+                {hospital.tags.name || "Hospital"} <br />{" "}
+                {hospital.tags.address}
+              </Popup>
+            </Marker>
+          ))}
+          <Marker position={userLocation} icon={userLocationIcon}>
+            <Popup>Your location</Popup>
+          </Marker>
+        </MapContainer>
       )}
     </Layout>
   );

@@ -1,12 +1,30 @@
 import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import videobg1 from "../assets/146.mp4";
+import videobg1 from "../assets/147.mp4";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 import ReCAPTCHA from "react-google-recaptcha";
+
+const affirmations = [
+  "You are capable of amazing things!",
+  "Believe in yourself and all that you are.",
+  "You are stronger than you think.",
+  "Your potential is limitless.",
+  "You are worthy of all the good things life has to offer.",
+  "You have the power to create change.",
+  "You are enough just as you are.",
+  "Your hard work will pay off.",
+  "You are making progress every day.",
+  "You deserve all the happiness in the world.",
+];
+
+const getRandomAffirmation = () => {
+  const randomIndex = Math.floor(Math.random() * affirmations.length);
+  return affirmations[randomIndex];
+};
 
 function Login() {
   const dispatch = useDispatch();
@@ -43,12 +61,20 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    // Display a random affirmation as a toast notification when the component mounts
+    toast.success(getRandomAffirmation(), {
+      position: "top-center",
+      duration: 5000, // Toast duration in milliseconds
+    });
+  }, []);
+
   return (
     <div className="video">
       <video src={videobg1} autoPlay loop muted className="videobg1" />
       <div className="authentication">
         <div className="authentication-form card p-3">
-          <h1 className="card-title">Welcome back to SehatSathi</h1>
+          <h1 className="card-title">Welcome back to AarogyaMarg</h1>
           <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Email"

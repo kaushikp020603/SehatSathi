@@ -14,7 +14,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import Logo from "../../assets/logo2.png";
+import Logo from "../../assets/logo12.png";
 
 const Footer = () => {
   const scrollToSection = (sectionId) => {
@@ -25,12 +25,15 @@ const Footer = () => {
   };
 
   return (
-    <AppBar position="static" style={{ backgroundColor: "#E0E9FF" }}>
+    <AppBar
+      position="static"
+      style={{ backgroundColor: "#E0E9FF", height: 100 }}
+    >
       <Toolbar>
         {/* First Row */}
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <img src={Logo} alt="Logo" style={{ width: 200 }} />
+            <img src={Logo} alt="Logo" style={{ width: 200, marginTop: 20 }} />
           </Grid>
           {/* Middle Row */}
           <Grid item>

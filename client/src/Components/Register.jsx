@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import videobg1 from "../assets/146.mp4";
+import videobg1 from "../assets/147.mp4";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -47,7 +47,7 @@ function Register() {
 
       <div className="authentication">
         <div className="authentication-form card p-3">
-          <h1 className="card-title">Register to SehatSathi</h1>
+          <h1 className="card-title">Register to AarogyaMarg</h1>
           <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Name"

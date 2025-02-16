@@ -21,6 +21,9 @@ import Attendance from "./Components/Attendance";
 import AdminHome from "./Components/Home/AdminHome";
 import BookSearch from "./Components/Books/BookSearch";
 import ContactUs from "./Components/ContactUs";
+import DiseaseAlerts from "./Components/MainPage/DiseaseAlerts";
+import Chatbot from "./Components/MainPage/Chatbot";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -142,7 +145,7 @@ function App() {
             path="/admin/home"
             element={
               <ProtectedRoute>
-                <AdminHome />
+                <AdminHome width="50%" height={300} />
               </ProtectedRoute>
             }
           />
@@ -162,6 +165,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/latest-health-alerts" element={<DiseaseAlerts />} />
+          <Route path="/donna-ai" element={<Chatbot />} />
           <Route path="/" element={<MainPage />} />
         </Routes>
       </BrowserRouter>

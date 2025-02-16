@@ -40,7 +40,7 @@ const ContactSection = () => {
         </div>
         <div className="contact-item">
           <Email />
-          <Typography>sehatsathi@gmail.com</Typography>
+          <Typography>AarogyaMarg@gmail.com</Typography>
         </div>
         <div className="contact-item">
           <LocationOn />

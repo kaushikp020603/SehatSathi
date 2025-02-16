@@ -11,7 +11,7 @@ function SecondaryFooter() {
         marginBottom: "0",
       }}
     >
-      <p>SehatSathi@2024 &trade;</p>
+      <p>AarogyaMarg@2024 &trade;</p>
     </div>
   );
 }

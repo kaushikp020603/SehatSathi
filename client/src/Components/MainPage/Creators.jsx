@@ -8,13 +8,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import "../../App.css";
 function Creators() {
-  let message = `Discover the faces shaping SehatSathi's success.`;
+  let message = `Discover the faces shaping AarogyaMarg's success.`;
   return (
     <section className="section-whit">
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center">
-            <h2 className="section-title">The Team Behind SehatSathi</h2>
+            <h2 className="section-title">The Team Behind AarogyaMarg</h2>
             <p className="section-subtitle">{message}</p>
           </div>
           <div className="col-sm-6 col-md-3">
