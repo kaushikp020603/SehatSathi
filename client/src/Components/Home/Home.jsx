@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../Layout";
 import "../../layout.css";
+<<<<<<< HEAD
 import { Button, Col, Row, Select, Card, message } from "antd";
 import Doctor from "../Doctor";
 import { useDispatch } from "react-redux";
@@ -11,6 +12,12 @@ import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+=======
+import { Button, Col, Row, Select, Card } from "antd";
+import Doctor from "../Doctor";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/alertsSlice";
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
 
 const { Option } = Select;
 
@@ -21,9 +28,12 @@ function Home() {
   const [showSymptomsCard, setShowSymptomsCard] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [disease, setDisease] = useState("");
+<<<<<<< HEAD
   const [nearbyHospitals, setNearbyHospitals] = useState([]);
   const [userLocation, setUserLocation] = useState([19.2976, 72.8471]);
   const [mapVisible, setMapVisible] = useState(false);
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
 
   const dispatch = useDispatch();
   const symptomsList = [
@@ -174,6 +184,7 @@ function Home() {
     alignItems: "center",
     justifyContent: "center",
   };
+<<<<<<< HEAD
   const markerStyle = {
     backgroundColor: "#ff5722",
     borderRadius: "50%",
@@ -214,6 +225,8 @@ function Home() {
     iconAnchor: [12, 24], // Anchor point of the icon
     popupAnchor: [0, -20], // Position of the popup relative to the icon
   });
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
 
   const getData = async () => {
     try {
@@ -259,6 +272,7 @@ function Home() {
     }
   };
 
+<<<<<<< HEAD
   const findNearbyHospitals = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -284,6 +298,8 @@ function Home() {
       message.error("Geolocation is not supported by this browser.");
     }
   };
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
   const handleSymptomsChange = async (value) => {
     setSelectedSymptoms(value);
   };
@@ -315,6 +331,7 @@ function Home() {
     ? doctors.filter((doctor) => doctor.specialization === specializationFilter)
     : doctors;
 
+<<<<<<< HEAD
   const locationIcon = new L.Icon({
     iconUrl:
       "data:image/svg+xml;base64," +
@@ -354,6 +371,8 @@ function Home() {
     popupAnchor: [0, -20], // Position of the popup relative to the icon
   });
 
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
   return (
     <Layout>
       {selectedOption === null ? (
@@ -379,6 +398,7 @@ function Home() {
           >
             Find directly based on specialization
           </Button>
+<<<<<<< HEAD
           <Button
             onClick={findNearbyHospitals}
             style={{
@@ -390,6 +410,8 @@ function Home() {
           >
             Find Nearby Hospitals and Clinics
           </Button>
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
         </div>
       ) : (
         <div>
@@ -413,9 +435,13 @@ function Home() {
                 <Option value="Cardiologist">Cardiologist</Option>
                 <Option value="Neurologist">Neurologist</Option>
                 <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
+<<<<<<< HEAD
                 <Option value="Infectious Disease Specialist">
                   Infectious Disease Specialist
                 </Option>
+=======
+                <Option value="Infectious Disease Specialist">Infectious Disease Specialist</Option>
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
                 <Option value="Pediatrician">Pediatrician</Option>
                 <Option value="Orthopedic Surgeon">Orthopedic Surgeon</Option>
                 <Option value="Rheumatologist">Rheumatologist</Option>
@@ -449,18 +475,28 @@ function Home() {
                           </Option>
                         ))}
                       </Select>
+<<<<<<< HEAD
                       <p>
                         For better accuracy enter atleast 4 symptoms. If you
                         have less than 4 mild symptoms visit a General Physician
                         for better treatment
                       </p>
+=======
+                      <p>For better accuracy enter atleast 4 symptoms. If you have less than 4 mild symptoms visit a General Physician for better treatment</p>
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
                       <Button onClick={handleSubmit}>Check</Button>
                     </Card>
                   )}
                   <br></br>
                   <hr></hr>
                   {disease && (
+<<<<<<< HEAD
                     <p style={paragraphStyle}>You should Visit a {disease}</p>
+=======
+                    <p style={paragraphStyle}>
+                      You should Visit a {disease}
+                    </p>
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
                   )}
                   <Row gutter={20} style={{ marginTop: "23px" }}>
                     {filteredDoctors.map((doctor) => (
@@ -485,6 +521,7 @@ function Home() {
           </Row>
         </div>
       )}
+<<<<<<< HEAD
 
       {mapVisible && (
         <MapContainer
@@ -513,6 +550,8 @@ function Home() {
           </Marker>
         </MapContainer>
       )}
+=======
+>>>>>>> e8959d3a82889ce4434aa7f36c039960e31072f2
     </Layout>
   );
 }
